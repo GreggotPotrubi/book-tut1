@@ -1,0 +1,64 @@
+---
+import Footer from "../components/Footer.astro";
+import Navigation from "../components/Navigation.astro";
+import "../styles/global.css";
+const profilePicture = "https://i.imgur.com/JPGFE75.jpg";
+type Props = {
+    title: string;
+}
+const { title } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content="Frau Katerina's Website"/>
+		<title>{title}</title>
+
+        <script is:inline>
+            const darkThemeClass = "dark";
+            const colorMode = "colorMode";
+            const lightTheme = "light", darkTheme = "dark";
+        
+            const rootElement = document.documentElement;
+        
+            const getInitialColorMode = () => {
+                const savedColorMode = window.localStorage.getItem(colorMode);
+                if (savedColorMode) {
+                    return savedColorMode;
+                }
+        
+                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                    return darkTheme;
+                }
+                return lightTheme;
+            };
+        
+            const initialColorMode = getInitialColorMode();
+            const setInitialColorMode = (mode) => {
+                if (mode === lightTheme) {
+                    rootElement.classList.remove(darkThemeClass);
+                } else {
+                    rootElement.classList.add(darkThemeClass);
+                }
+            };
+        
+            setInitialColorMode(initialColorMode);
+        </script>
+	</head>
+	<body>
+        <main>
+            <Navigation />
+
+            <slot />
+
+            <Footer />
+        </main>
+	</body>
+</html>

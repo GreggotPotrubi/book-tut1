@@ -1,0 +1,56 @@
+---
+import { Icon } from 'astro-icon/components'
+---
+
+<button aria-label="Theme toggler" data-theme-toggle>
+    <Icon name="mdi:weather-sunny" class="sun" width="24" height="27" />
+    <Icon name="mdi:moon-and-stars" class="moon" width="24" height="24" />
+</button>
+
+<style>
+    button {
+        cursor: pointer;
+        border-radius: 10px;
+        border: 0;
+        padding: 5px 10px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    button:hover {
+        transform: scale(0.9);
+    }
+
+    button:active {
+        transform: scale(1);
+    }
+
+    .sun {
+        display: none;
+    }
+
+    :global(.dark) .sun {
+        display: block;
+    }
+
+    :global(.dark) .moon {
+        display: none;
+    }
+</style>
+
+<script>
+    const darkThemeClass = "dark";
+    const colorMode = "colorMode";
+    const lightTheme = "light", darkTheme = "dark";
+
+    const toggle = document.querySelector("[data-theme-toggle]");
+    const rootElement = document.documentElement;
+
+    if (toggle) {
+        toggle.addEventListener("click", () => {
+            rootElement.classList.toggle(darkThemeClass);
+
+            const ColorMode = rootElement.classList.contains(darkThemeClass) ? darkTheme : lightTheme;
+            window.localStorage.setItem(colorMode, ColorMode);
+        });
+    }
+</script>
